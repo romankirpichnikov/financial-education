@@ -1,0 +1,26 @@
+erDiagram
+
+AUTHOR ||--o{ COURSE : has
+COURSE ||--o{ COMPETENCY : has
+
+AUTHOR {
+	integer id PK
+	string name
+}
+
+COURSE {
+  integer id PK
+  string title
+  text description
+  integer author_id FK
+}
+
+COMPETENCY {
+  integer id PK
+  string name
+}
+
+COURSE_COMPETENCY {
+  integer course_id FK
+  integer competency_id FK
+}

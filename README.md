@@ -1,24 +1,61 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Требования
 
-Things you may want to cover:
+### _Бизнес требования_
+Требуется создать прототип приложения онлайн-курсов.
 
-* Ruby version
+Заказчику требуется система с реализованными сущностями:
+- Курс
+- Автор курса
+- Компетенции, которые развивает данный курс
 
-* System dependencies
+API должно реализовывать CRUD-операции.
+### _Технические требования_
+- Для прототипа можно не делать авторизацию
+- API request должно быть покрыто тестами с помощью rswag, и содержать сгенерированную этой библиотекой Swagger документацию к API приложения.
+- Версия Ruby on Rails не ниже 6.0
+- PostgreSQL
+### _Definition of done_
+- Можно получить доступ к Swagger API документации и отправить тестовые запросы
+- Тесты проходят без ошибок и покрывают API
+- Начальные данные можно установить командой bin/rails db:seed
 
-* Configuration
+### Шаг 0
+```
+rails new financial-education --api -d postgresql
+```
 
-* Database creation
+### Шаг 1
+Для проектирования не слишком много требований. Поэтом будем использовать стандартные связи и типы, что бы не усложнять процесс.
 
-* Database initialization
+Определяем связи в БД с минимальным набором сущностей
 
-* How to run the test suite
+```mermaid
+erDiagram
 
-* Services (job queues, cache servers, search engines, etc.)
+AUTHOR ||--o{ COURSE : has
+COURSE ||--o{ COMPETENCY : has
 
-* Deployment instructions
+AUTHOR {
+	integer id PK
+	string name
+}
 
-* ...
+COURSE {
+  integer id PK
+  string title
+  text description
+  integer author_id FK
+}
+
+COMPETENCY {
+  integer id PK
+  string name
+}
+
+COURSE_COMPETENCY {
+  integer course_id FK
+  integer competency_id FK
+}
+```
