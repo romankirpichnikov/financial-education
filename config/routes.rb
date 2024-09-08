@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   get "up" => "rails/health#show", as: :rails_health_check
   resources :authors
+  resources :courses
 end

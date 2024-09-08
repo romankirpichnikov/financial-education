@@ -24,6 +24,16 @@ RSpec.configure do |config|
         paths: {},
         components: {
           schemas: {
+            course: {
+              type: :object,
+              properties: {
+                id: { type: :integer, example: 1 },
+                title: { type: :string, example: 'Course Title' },
+                description: { type: :string, example: 'Course Description' },
+                author_id: { type: :integer, example: 1 }
+              },
+              required: ['title', 'description', 'author_id']
+            },
             author: {
               type: :object,
               properties: {

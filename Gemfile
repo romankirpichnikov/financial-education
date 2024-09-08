@@ -12,8 +12,12 @@ gem "blueprinter"
 group :development, :test do
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails"
   gem "rswag"
   gem "rswag-api"
   gem "rswag-ui"
+end
+
+group :test do
+  gem "factory_bot_rails"
+  gem "rspec-rails"
 end
