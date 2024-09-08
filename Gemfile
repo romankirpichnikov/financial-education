@@ -7,8 +7,13 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem "blueprinter"
 
 group :development, :test do
-  gem 'faker'
+  gem "faker"
   gem "pry-rails"
+  gem "rspec-rails"
+  gem "rswag"
+  gem "rswag-api"
+  gem "rswag-ui"
 end
