@@ -34,6 +34,14 @@ RSpec.configure do |config|
               },
               required: ['title', 'description', 'author_id']
             },
+            Competency: {
+              type: :object,
+              properties: {
+                id: { type: :integer },
+                name: { type: :string }
+              },
+              required: ['id', 'name']
+            },
             author: {
               type: :object,
               properties: {

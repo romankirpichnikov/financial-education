@@ -89,6 +89,88 @@ paths:
           description: author deleted
         '404':
           description: author not found
+  "/competencies":
+    get:
+      summary: Retrieves all competencies
+      tags:
+      - Competencies
+      responses:
+        '200':
+          description: competencies found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Competency"
+    post:
+      summary: Creates a competency
+      tags:
+      - Competencies
+      parameters: []
+      responses:
+        '201':
+          description: competency created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Competency"
+  "/competencies/{id}":
+    get:
+      summary: Retrieves a competency
+      tags:
+      - Competencies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: competency found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Competency"
+        '404':
+          description: competency not found
+    patch:
+      summary: Updates a competency
+      tags:
+      - Competencies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: competency updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Competency"
+    delete:
+      summary: Deletes a competency
+      tags:
+      - Competencies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: competency deleted
+        '404':
+          description: competency not found
   "/courses":
     get:
       summary: Retrieves all courses
@@ -197,6 +279,16 @@ components:
       - title
       - description
       - author_id
+    Competency:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+      - id
+      - name
     author:
       type: object
       properties:

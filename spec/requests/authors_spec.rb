@@ -47,7 +47,7 @@ RSpec.describe 'Authors API', type: :request do
       response '200', 'author retrieved' do
         schema '$ref': '#/components/schemas/author'
 
-        let(:id) { Author.create(name: 'Existing Author').id }
+        let(:id) { create(:author).id }
         run_test!
       end
 
@@ -71,7 +71,7 @@ RSpec.describe 'Authors API', type: :request do
       response '200', 'author updated' do
         schema '$ref': '#/components/schemas/author'
 
-        let(:id) { Author.create(name: 'Existing Author').id }
+        let(:id) { create(:author).id }
         let(:author) { { name: 'Updated Author' } }
         run_test!
       end
@@ -83,7 +83,7 @@ RSpec.describe 'Authors API', type: :request do
       end
 
       response '422', 'invalid request' do
-        let(:id) { Author.create(name: 'Existing Author').id }
+        let(:id) { create(:author).id }
         let(:author) { { name: '' } }
         run_test!
       end
@@ -92,7 +92,7 @@ RSpec.describe 'Authors API', type: :request do
     delete 'Deletes an author' do
       tags 'Authors'
       response '204', 'author deleted' do
-        let(:id) { Author.create(name: 'Existing Author').id }
+        let(:id) { create(:author).id }
         run_test!
       end
 
