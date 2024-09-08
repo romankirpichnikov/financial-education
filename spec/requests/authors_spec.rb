@@ -91,14 +91,34 @@ RSpec.describe 'Authors API', type: :request do
 
     delete 'Deletes an author' do
       tags 'Authors'
-      response '204', 'author deleted' do
-        let(:id) { create(:author).id }
-        run_test!
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'author deleted' do
+        let!(:author) { create(:author) }
+        let!(:course) { create(:course, author: author) }
+        let(:id) { author.id }
+
+        before do
+          allow_any_instance_of(AuthorDeletionService).to receive(:call).and_return(true)
+        end
+
+        run_test! do |response|
+          expect(response.body).to include('Author was successfully deleted and courses reassigned.')
+        end
       end
 
-      response '404', 'author not found' do
-        let(:id) { 'invalid' }
-        run_test!
+      response '422', 'failed to delete author' do
+        let!(:author) { create(:author) }
+        let(:id) { author.id }
+
+        before do
+          allow_any_instance_of(AuthorDeletionService).to receive(:call).and_return(false)
+        end
+
+        run_test! do |response|
+          expect(response.body).to include('Failed to delete author.')
+          expect(Author.exists?(author.id)).to be_truthy
+        end
       end
     end
   end

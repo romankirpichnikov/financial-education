@@ -29,8 +29,11 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
-    @author.destroy
-    head :no_content
+    if AuthorDeletionService.new(@author.id).call
+      render json: { message: 'Author was successfully deleted and courses reassigned.' }, status: :ok
+    else
+      render json: { error: 'Failed to delete author.' }, status: :unprocessable_entity
+    end
   end
 
   private
