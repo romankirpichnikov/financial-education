@@ -71,3 +71,29 @@ COURSE_COMPETENCY {
 - Генерируем CRUD под  Авторов, Курсы, Компетенции
 - Решил использовать blueprint что бы отделить сериализацию json
 - Делаем базовую настройки гемов
+- Доступ к документации будет по адресу `http://localhost:3000/api-docs/index.html`
+
+### Шаг 4
+- Описываем остаточные эндпоинты
+- Для дестроя автора назначаем рандомного автора у кого совпали компетенции
+- Добавил сервис для удаления автора с переасайном
+
+
+### Запуск проекта
+```bash
+git clone git@github.com:romankirpichnikov/financial-education.git
+
+cd financial-education
+
+bundle install
+
+docker compose up -d
+
+rails db:create
+
+rails db:seed
+
+rails server
+
+go to http://localhost:3000/api-docs/index.html
+```
