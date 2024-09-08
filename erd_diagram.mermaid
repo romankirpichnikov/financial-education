@@ -1,11 +1,11 @@
 erDiagram
-
-AUTHOR ||--o{ COURSE : has
-COURSE ||--o{ COMPETENCY : has
+AUTHOR ||--o{ COURSE : "has many"
+COURSE ||--o{ COURSE_COMPETENCY : "has many"
+COMPETENCY ||--o{ COURSE_COMPETENCY : "has many"
 
 AUTHOR {
-	integer id PK
-	string name
+  integer id PK
+  string name
 }
 
 COURSE {

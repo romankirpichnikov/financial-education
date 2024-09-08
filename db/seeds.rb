@@ -1,9 +1,24 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'faker'
+
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE authors, courses, competencies, competencies_courses RESTART IDENTITY CASCADE;')
+puts 'The tables have been cleared'
+
+competencies = 10.times.map do
+  Competency.create!(name: Faker::Educator.subject)
+end
+
+5.times do
+  author = Author.create(name: Faker::Name.name)
+
+  rand(2..5).times do
+    course = Course.create(
+      title: Faker::Educator.course_name,
+      description: Faker::Lorem.paragraph(sentence_count: 5),
+      author: author
+    )
+
+    course.competencies << competencies.sample(rand(1..3))
+  end
+end
+
+puts "Seeding databse completed!"
